@@ -21,12 +21,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/api", [PersonRoute, PlanetRoute, SpeciesRoute, FilmsRoute]);
 
 // serve static files from frontend build folder
-app.use(express.static(BUILD_DIR));
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(BUILD_DIR, "index.html"));
-});
+if (process.env.NODE_ENV === "development") {
+  app.use(express.static(BUILD_DIR));
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(BUILD_DIR, "index.html"));
+  });
 
-// start express server
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}!`);
-});
+  // start express server
+  app.listen(PORT, () => {
+    console.log(`App listening on port ${PORT}!`);
+  });
+}
+
+export default app;

@@ -2,7 +2,7 @@ const path = require("path");
 
 const nodeExternals = require("webpack-node-externals");
 
-const entry = { server: "./src/backend/index.ts" };
+const entry = { index: "./src/backend/index.ts" };
 
 module.exports = {
   mode: process.env.NODE_ENV ? process.env.NODE_ENV : "development",
@@ -10,7 +10,7 @@ module.exports = {
   devtool: "inline-source-map",
   entry: entry,
   output: {
-    path: path.resolve(__dirname, "build"),
+    path: path.resolve(__dirname, "api"),
     filename: "[name].js",
   },
   resolve: {
