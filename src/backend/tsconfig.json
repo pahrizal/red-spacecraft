@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist",
+    "target": "esnext",
+    "noEmit": false,
+    "module": "commonjs",
+    "strict": true,
+    "moduleResolution": "node"
+  },
+  // don't compile frontend code in the backend
+  "exclude": ["../../build", "../frontend"]
+}
