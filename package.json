@@ -5,7 +5,7 @@
   "main": "index.js",
   "proxy": "http://localhost:3001",
   "scripts": {
-    "start": "PORT=3000 node api/index.js",
+    "start": "node api/index.js",
     "start:backend": "NODE_ENV=production node api/index.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

@@ -27,17 +27,14 @@ app.use(
   [PersonRoute, PlanetRoute, SpeciesRoute, FilmsRoute]
 );
 
-// serve static files from frontend build folder
-if (process.env.NODE_ENV === "development") {
-  app.use(express.static(STATIC_BUILD_DIR));
-  app.get("/*", (req, res) => {
-    res.sendFile(path.join(STATIC_BUILD_DIR, "index.html"));
-  });
+app.use(express.static(STATIC_BUILD_DIR));
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(STATIC_BUILD_DIR, "index.html"));
+});
 
-  // start express server
-  app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}!`);
-  });
-}
+// start express server
+app.listen(PORT, () => {
+  console.log(`App listening on port ${PORT}!`);
+});
 
 export default app;
