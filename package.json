@@ -14,7 +14,7 @@
     "dev:backend": "concurrently -p name -c \"yellow,magenta\" -n \"webpack-server,nodemon-server\" \"yarn dev:backend:webpack\" \"yarn dev:backend:nodemon\"",
     "dev:backend:webpack": "webpack --config webpack.backend.js --watch",
     "dev:backend:nodemon": "rm -f api/index.js && wait-on -l api/index.js && nodemon api/index.js",
-    "build": "yarn build:frontend && yarn build:backend",
+    "build": "NODE_ENV=production yarn build:frontend && yarn build:backend",
     "build:frontend": "react-scripts build",
     "build:backend": "webpack --config webpack.backend.js"
   },
