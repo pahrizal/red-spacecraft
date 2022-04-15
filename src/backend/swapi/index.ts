@@ -40,12 +40,38 @@ export class Swapi {
   }
 
   /**
+   * a function to remove unecessary trailing end slashes from URLs
+   * @param url URL to clean up
+   * @returns
+   */
+  private normalizeUrl = (url: string) => url.replace(/\/$/, "");
+
+  /**
+   * a function to get people id from the url
+   * @param url:string the people url
+   * @returns number
+   */
+  private getPeopleId(url: string): number {
+    return Number(this.normalizeUrl(url).split("/").pop());
+  }
+
+  /**
+   * a function to generate image url for the people
+   * @param url:string the people url
+   * @returns string
+   */
+  private getPeopleImageUrl(url: string): string {
+    const peopleId = this.getPeopleId(url);
+    return `https://starwars-visualguide.com/assets/img/characters/${peopleId}.jpg`;
+  }
+
+  /**
    * add response to cache
    * @param url:string url to cache
    * @param value:any cache value
    */
   private addToCache(url: string, value: any) {
-    const cleanUrl = url.replace(/\/$/, "");
+    const cleanUrl = this.normalizeUrl(url);
     this.memoryCache[cleanUrl] = value;
   }
 
@@ -56,7 +82,7 @@ export class Swapi {
    *
    */
   private getFromCache(url: string): any {
-    const cleanUrl = url.replace(/\/$/, "");
+    const cleanUrl = this.normalizeUrl(url);
     if (this.memoryCache[cleanUrl]) {
       console.log("cache hit", cleanUrl);
       return this.memoryCache[cleanUrl];
@@ -126,7 +152,13 @@ export class Swapi {
       this.addToCache(url, people);
     });
     console.timeEnd("getAllPeople");
-    return allPeoplesResponse;
+    return allPeoplesResponse.map((p) => {
+      return {
+        ...p,
+        id: this.getPeopleId(p.url),
+        imageUrl: this.getPeopleImageUrl(p.url),
+      };
+    });
   }
 
   /**
@@ -229,7 +261,9 @@ export class Swapi {
     const flatenedPlanet = await this.getPlanetByUrl(people.homeworld);
     const flatenedSpecies = await this.getSpeciesByUrls(people.species);
     const flatenedFilms = await this.getFilmsByUrls(people.films);
+
     return {
+      id: this.getPeopleId(people.url),
       name: people.name,
       height: people.height,
       mass: people.mass,
@@ -241,6 +275,7 @@ export class Swapi {
       homeworld: flatenedPlanet,
       species: flatenedSpecies,
       films: flatenedFilms,
+      imageUrl: this.getPeopleImageUrl(people.url),
     };
   }
 }

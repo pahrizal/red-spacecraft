@@ -22,6 +22,7 @@ export interface Planet {
 }
 
 export interface PeopleBase {
+  id: number;
   name: string;
   height: string;
   mass: string;
@@ -30,6 +31,7 @@ export interface PeopleBase {
   gender: string;
   birth_year: string;
   url: string;
+  imageUrl: string;
 }
 export interface People extends PeopleBase {
   homeworld: Planet | null;
