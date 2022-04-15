@@ -1,10 +1,10 @@
 import bodyParser from "body-parser";
 import express, { NextFunction, Request, Response } from "express";
 import path from "path";
+import FilmsRoute from "./api/films/route";
 import PersonRoute from "./api/person/route";
 import PlanetRoute from "./api/planet/route";
 import SpeciesRoute from "./api/species/route";
-import FilmsRoute from "./api/films/route";
 
 const STATIC_BUILD_DIR = path.join(process.cwd() + "/build");
 const PORT = process.env.PORT || 3001;

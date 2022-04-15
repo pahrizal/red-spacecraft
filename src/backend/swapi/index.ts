@@ -2,10 +2,10 @@ import fetch, { RequestInit } from "node-fetch-commonjs";
 import {
   Film,
   People,
-  SwapiResponse,
   Planet,
   Species,
   SwapiPeople,
+  SwapiResponse,
 } from "./schema";
 
 export class Swapi {

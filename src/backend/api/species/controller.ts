@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Swapi from "../../swapi";
-import { Planet, Species } from "../../swapi/schema";
+import { Species } from "../../swapi/schema";
 
 class SpeciesController {
   async getById(req: Request<{ id: number }>, res: Response<Species>) {
