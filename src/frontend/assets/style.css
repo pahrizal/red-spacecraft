@@ -5,8 +5,8 @@
 @layer base {
   html,
   body {
-    @apply p-0 m-0 bg-slate-900 text-slate-100 font-exo;
-    @apply flex flex-col justify-center items-center w-screen h-screen;
+    @apply p-0 m-0 bg-slate-900 text-slate-100 font-ibm;
+    @apply flex flex-col justify-start items-center w-screen h-screen;
   }
   @import url("https://fonts.googleapis.com/css?family=Exo:700,800");
   @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
