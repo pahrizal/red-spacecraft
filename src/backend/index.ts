@@ -1,12 +1,12 @@
 import bodyParser from "body-parser";
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import path from "path";
 import PersonRoute from "./api/person/route";
 import PlanetRoute from "./api/planet/route";
 import SpeciesRoute from "./api/species/route";
 import FilmsRoute from "./api/films/route";
 
-const BUILD_DIR = path.join(process.cwd() + "/build");
+const STATIC_BUILD_DIR = path.join(process.cwd() + "/build");
 const PORT = process.env.PORT || 3001;
 
 const app = express();
@@ -18,13 +18,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // serve API endpoints
-app.use("/api", [PersonRoute, PlanetRoute, SpeciesRoute, FilmsRoute]);
+app.use(
+  "/api",
+  (req: Request, res: Response, next: NextFunction) => {
+    res.setHeader("Cache-Control", "s-max-age=1, stale-while-revalidate");
+    next();
+  },
+  [PersonRoute, PlanetRoute, SpeciesRoute, FilmsRoute]
+);
 
 // serve static files from frontend build folder
 if (process.env.NODE_ENV === "development") {
-  app.use(express.static(BUILD_DIR));
+  app.use(express.static(STATIC_BUILD_DIR));
   app.get("/*", (req, res) => {
-    res.sendFile(path.join(BUILD_DIR, "index.html"));
+    res.sendFile(path.join(STATIC_BUILD_DIR, "index.html"));
   });
 
   // start express server

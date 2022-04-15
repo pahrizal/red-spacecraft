@@ -5,15 +5,15 @@
   "main": "index.js",
   "proxy": "http://localhost:3001",
   "scripts": {
-    "start": "PORT=3000 node build/server.js",
-    "start:backend": "NODE_ENV=production node build/server.js",
+    "start": "PORT=3000 node api/index.js",
+    "start:backend": "NODE_ENV=production node api/index.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently -p name -c \"yellow,magenta,blue\" -n \"webpack-server,nodemon-server,CRA\" \"yarn dev:backend:webpack\" \"yarn dev:backend:nodemon\" \"yarn dev:frontend\"",
     "dev:frontend": "wait-on -l tcp:3001 && react-scripts start",
     "dev:backend": "concurrently -p name -c \"yellow,magenta\" -n \"webpack-server,nodemon-server\" \"yarn dev:backend:webpack\" \"yarn dev:backend:nodemon\"",
     "dev:backend:webpack": "webpack --config webpack.backend.js --watch",
-    "dev:backend:nodemon": "rm -f build/server.js && wait-on -l build/server.js && nodemon build/server.js",
+    "dev:backend:nodemon": "rm -f api/index.js && wait-on -l api/index.js && nodemon api/index.js",
     "build": "yarn build:frontend && yarn build:backend",
     "build:frontend": "react-scripts build",
     "build:backend": "webpack --config webpack.backend.js"
