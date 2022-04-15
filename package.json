@@ -2,25 +2,21 @@
   "name": "red-spacescraft",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.0.1",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.4.1",
-    "@types/node": "^16.11.27",
-    "@types/react": "^18.0.5",
-    "@types/react-dom": "^18.0.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.6.3",
-    "web-vitals": "^2.1.4"
-  },
+  "main": "index.js",
+  "proxy": "http://localhost:3001",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "PORT=3000 node build/server.js",
+    "start:backend": "NODE_ENV=production node build/server.js",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently -p name -c \"yellow,magenta,blue\" -n \"webpack-server,nodemon-server,CRA\" \"yarn dev:backend:webpack\" \"yarn dev:backend:nodemon\" \"yarn dev:frontend\"",
+    "dev:frontend": "wait-on -l tcp:3001 && react-scripts start",
+    "dev:backend": "concurrently -p name -c \"yellow,magenta\" -n \"webpack-server,nodemon-server\" \"yarn dev:backend:webpack\" \"yarn dev:backend:nodemon\"",
+    "dev:backend:webpack": "webpack --config webpack.backend.js --watch",
+    "dev:backend:nodemon": "rm -f build/server.js && wait-on -l build/server.js && nodemon build/server.js",
+    "build": "yarn build:frontend && yarn build:backend",
+    "build:frontend": "react-scripts build",
+    "build:backend": "webpack --config webpack.backend.js"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +35,37 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "clsx": "^1.1.1",
+    "concurrently": "^7.1.0",
+    "express": "^4.17.3",
+    "node-fetch-commonjs": "^3.1.1",
+    "nodemon": "^2.0.15",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.0.1",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/body-parser": "^1.19.2",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^16.11.27",
+    "@types/react": "^18.0.5",
+    "@types/react-dom": "^18.0.0",
+    "autoprefixer": "^10.4.4",
+    "postcss": "^8.4.12",
+    "tailwindcss": "^3.0.24",
+    "ts-loader": "^9.2.8",
+    "typescript": "^4.6.3",
+    "wait-on": "^6.0.1",
+    "web-vitals": "^2.1.4",
+    "webpack-cli": "^4.9.2",
+    "webpack-node-externals": "^3.0.0"
   }
 }
