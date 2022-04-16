@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { People } from "../../../backend/swapi/schema";
 import { apiActions } from "../api/action";
 import { AppState } from "../redux";
 import { searchActions } from "./action";
@@ -9,13 +10,19 @@ import { searchActions } from "./action";
  */
 export function useSearch() {
   const dispatch = useDispatch();
-  const { query, filteredPeoples, busy } = useSelector(
+  const { query, filteredPeoples, busy, selected } = useSelector(
     (state: AppState) => state.search
   );
   const peoples = useSelector((state: AppState) => state.api.peoples);
   const searchPeople = useCallback(
     (keyword: string) => {
       dispatch(searchActions.searchPeople(keyword));
+    },
+    [dispatch]
+  );
+  const setSelected = useCallback(
+    (people: People | null) => {
+      dispatch(searchActions.selectPeople(people));
     },
     [dispatch]
   );
@@ -33,5 +40,7 @@ export function useSearch() {
     query,
     filteredPeoples,
     searchPeople,
+    setSelected,
+    selected,
   };
 }
