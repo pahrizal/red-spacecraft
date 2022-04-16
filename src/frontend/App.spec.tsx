@@ -7,6 +7,7 @@ describe("App renders correctly", () => {
     const el = screen.getAllByAltText("Star Wars Logo");
     expect(el).toHaveLength(1);
   });
+
   it("have the Search input", () => {
     render(<App />);
     const el = screen.getAllByPlaceholderText(
