@@ -14,4 +14,4 @@ jobs:
       - name: Installing dependencies
         run: yarn install
       - name: Running Test
-        run: yarn test
+        run: yarn test --watchAll=false

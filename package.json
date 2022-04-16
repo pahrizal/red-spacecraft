@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node api/index.js",
     "start:backend": "NODE_ENV=production node api/index.js",
-    "test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently -p name -c \"yellow,magenta,blue\" -n \"webpack-server,nodemon-server,CRA\" \"yarn dev:backend:webpack\" \"yarn dev:backend:nodemon\" \"yarn dev:frontend\"",
     "dev:frontend": "wait-on -l tcp:3001 && react-scripts start",
