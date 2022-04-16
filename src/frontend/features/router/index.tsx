@@ -1,11 +1,16 @@
-import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import Home from "../home";
+import { ROUTES, tRoutes } from "./definition";
 
 const Router = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      {Object.keys(ROUTES).map((key) => (
+        <Route
+          key={key}
+          path={ROUTES[key as tRoutes].path}
+          element={ROUTES[key as tRoutes].component}
+        />
+      ))}
       <Route
         path="*"
         element={

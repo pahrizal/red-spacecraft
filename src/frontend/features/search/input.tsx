@@ -2,6 +2,7 @@ import clsx from "clsx";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { People } from "../../../backend/swapi/schema";
+import { ROUTES } from "../router/definition";
 import { useSearch } from "./hook";
 
 interface Props extends React.HTMLAttributes<HTMLInputElement> {}
@@ -27,6 +28,21 @@ const SearchInput: FC<Props> = ({
     setInputValue(keyword);
   }, []);
 
+  const handleSelect = useCallback(
+    (people?: People) => {
+      if (people) {
+        setSelected(people);
+        const personId = people.id;
+        nav(ROUTES.person.path.replace(":id", String(personId)));
+      } else if (highlightedPeople) {
+        setSelected(highlightedPeople);
+        const personId = highlightedPeople.id;
+        nav(ROUTES.person.path.replace(":id", String(personId)));
+      }
+    },
+    [highlightedPeople, nav, setSelected]
+  );
+
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       switch (e.key) {
@@ -34,8 +50,7 @@ const SearchInput: FC<Props> = ({
           e.preventDefault();
           // navigate page to selected people detail
           if (highlightedPeople) {
-            setSelected(highlightedPeople);
-            nav(`/people/${highlightedPeople.id}`);
+            handleSelect();
           }
           break;
         case "Escape":
@@ -58,13 +73,7 @@ const SearchInput: FC<Props> = ({
           break;
       }
     },
-    [
-      filteredPeoples.length,
-      nav,
-      selectedItemIndex,
-      highlightedPeople,
-      setSelected,
-    ]
+    [highlightedPeople, filteredPeoples.length, handleSelect, selectedItemIndex]
   );
 
   // filter people on inputValue changes
@@ -141,6 +150,7 @@ const SearchInput: FC<Props> = ({
           {filteredPeoples.length > 0 &&
             filteredPeoples.map((people, i) => (
               <ListItem
+                onSelect={handleSelect}
                 highlighted={i === selectedItemIndex}
                 key={i}
                 index={i}
@@ -179,11 +189,13 @@ interface ListItemProps extends People {
   index: number;
   onHighlight: (people: People, el: HTMLLIElement) => void;
   highlighted: boolean;
+  onSelect: (people: People) => void;
 }
 const ListItem: FC<ListItemProps> = ({
   index,
   highlighted,
   onHighlight,
+  onSelect,
   ...rest
 }) => {
   const ref = useRef<HTMLLIElement>(null);
@@ -199,22 +211,22 @@ const ListItem: FC<ListItemProps> = ({
       style={{
         height: "5rem",
       }}
+      onClick={() => onSelect(rest)}
       className={clsx(
         "py-2 px-4",
+        "flex flex-row items-center",
         "cursor-pointer font-exo text-[1.4rem]",
         "border-l-4 border-transparent",
         "hover:text-yellow-500 hover:border-yellow-300",
         { highlighted: highlighted }
       )}
     >
-      <Link className=" flex flex-row items-center" to={`/person/${rest.id}`}>
-        <img
-          className="w-[3rem] rounded-full border-2 border-current mr-2"
-          src={rest.imageUrl}
-          alt={rest.name}
-        />
-        {rest.name}
-      </Link>
+      <img
+        className="w-[3rem] rounded-full border-2 border-current mr-2"
+        src={rest.imageUrl}
+        alt={rest.name}
+      />
+      {rest.name}
     </li>
   );
 };
