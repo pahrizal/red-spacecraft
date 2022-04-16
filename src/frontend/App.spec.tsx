@@ -1,5 +1,5 @@
-import App from "../App";
-import { render, screen } from "../utils/test-setup";
+import App from "./App";
+import { render, screen } from "./utils/test-setup";
 
 describe("App renders correctly", () => {
   test("we have the Star Wars logo", () => {
