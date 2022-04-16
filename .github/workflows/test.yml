@@ -1,0 +1,17 @@
+name: Testing
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Using NodeJS environment
+        uses: actions/setup-node@v1
+        with:
+          node-version: "17"
+      - name: Installing dependencies
+        run: yarn install
+      - name: Running Test
+        run: yarn test
