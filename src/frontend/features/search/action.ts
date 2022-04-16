@@ -1,13 +1,6 @@
 import { People } from "../../../backend/swapi/schema";
 import { ThunkAction } from "../redux";
-import {
-  searchActionTypes,
-  SetBusy,
-  SetFilteredPeople,
-  SetQuery,
-} from "./definition";
-
-export type SearchActions = SetBusy | SetQuery | SetFilteredPeople;
+import { SearchActions, searchActionTypes } from "./definition";
 
 export const searchActions = {
   /**
@@ -45,6 +38,18 @@ export const searchActions = {
       dispatch({
         type: searchActionTypes.SET_BUSY,
         payload: false,
+      });
+    };
+  },
+  /**
+   * a dispatch action to select a people
+   * @param people:People a people that will be selected
+   */
+  selectPeople: (people: People | null): ThunkAction<SearchActions> => {
+    return (dispatch, getState) => {
+      dispatch({
+        type: searchActionTypes.SET_SELECTED,
+        payload: people,
       });
     };
   },

@@ -1,9 +1,9 @@
 import { act } from "react-dom/test-utils";
-import { People } from "../../../backend/swapi/schema";
-import { fireEvent, render, screen, waitFor } from "../../utils/test-setup";
-import { initialAppState } from "../redux";
-import configureStore from "../redux/config";
-import SearchInput from "./input";
+import { People } from "../../../../backend/swapi/schema";
+import { fireEvent, render, screen, waitFor } from "../../../utils/test-setup";
+import { initialAppState } from "../../redux";
+import configureStore from "../../redux/config";
+import SearchInput from "../input";
 
 describe("SearchInput", () => {
   const people: People = {

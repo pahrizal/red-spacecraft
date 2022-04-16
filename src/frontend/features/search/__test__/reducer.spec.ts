@@ -1,7 +1,7 @@
-import { People } from "../../../backend/swapi/schema";
-import { searchActions } from "./action";
-import { initialSearchState, searchActionTypes } from "./definition";
-import { SearchReducer } from "./reducer";
+import { People } from "../../../../backend/swapi/schema";
+import { searchActions } from "../action";
+import { initialSearchState, searchActionTypes } from "../definition";
+import { SearchReducer } from "../reducer";
 
 describe("Search reducer test", () => {
   const people: People = {
