@@ -1,7 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { People } from "../../../backend/swapi/schema";
-import { Fetch } from "../../utils/fetch";
 import { AppState } from "../redux";
 import { apiActions } from "./action";
 

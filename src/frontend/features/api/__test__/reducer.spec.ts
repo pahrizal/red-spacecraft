@@ -1,6 +1,6 @@
-import { People } from "../../../backend/swapi/schema";
-import { apiActionTypes, initialApiState } from "./definition";
-import { ApiReducer } from "./reducer";
+import { People } from "../../../../backend/swapi/schema";
+import { apiActionTypes, initialApiState } from "../definition";
+import { ApiReducer } from "../reducer";
 
 describe("API reducer test", () => {
   const people: People = {
