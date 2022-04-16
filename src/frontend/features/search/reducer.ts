@@ -1,6 +1,6 @@
-import { SearchActions } from "./action";
 import {
   initialSearchState,
+  SearchActions,
   searchActionTypes,
   SearchState,
 } from "./definition";
@@ -27,6 +27,11 @@ export const SearchReducer = (
       return {
         ...state,
         filteredPeoples: action.payload,
+      };
+    case searchActionTypes.SET_SELECTED:
+      return {
+        ...state,
+        selected: action.payload,
       };
     default:
       return state;
