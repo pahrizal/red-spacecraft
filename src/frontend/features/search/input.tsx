@@ -19,7 +19,9 @@ const SearchInput: FC<Props> = ({
   const [inputValue, setInputValue] = useState("");
   const listRef = React.useRef<HTMLUListElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [selectedPeople, setSelectedPeople] = useState<People | null>(null);
+  const [highlightedPeople, setHighlightedPeople] = useState<People | null>(
+    null
+  );
   const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const keyword = e.target.value;
     setInputValue(keyword);
@@ -31,9 +33,9 @@ const SearchInput: FC<Props> = ({
         case "Enter":
           e.preventDefault();
           // navigate page to selected people detail
-          if (selectedPeople) {
-            setSelected(selectedPeople);
-            nav(`/people/${selectedPeople.id}`);
+          if (highlightedPeople) {
+            setSelected(highlightedPeople);
+            nav(`/people/${highlightedPeople.id}`);
           }
           break;
         case "Escape":
@@ -60,7 +62,7 @@ const SearchInput: FC<Props> = ({
       filteredPeoples.length,
       nav,
       selectedItemIndex,
-      selectedPeople,
+      highlightedPeople,
       setSelected,
     ]
   );
@@ -76,6 +78,13 @@ const SearchInput: FC<Props> = ({
       searchPeople(inputValue);
     }
   }, [inputValue, searchPeople, setSelected]);
+
+  // set highlighted people
+  useEffect(() => {
+    if (selectedItemIndex >= 0 && filteredPeoples.length > 0) {
+      setHighlightedPeople(filteredPeoples[selectedItemIndex]);
+    }
+  }, [filteredPeoples, selectedItemIndex]);
   return (
     <div
       data-testid="search-container"
@@ -137,7 +146,6 @@ const SearchInput: FC<Props> = ({
                 index={i}
                 {...people}
                 onHighlight={(people, el) => {
-                  setSelectedPeople(people);
                   if (!listRef.current) return;
                   //if el position is out of bottom viewport, scroll down listRef to show el
                   if (
@@ -196,7 +204,7 @@ const ListItem: FC<ListItemProps> = ({
         "cursor-pointer font-exo text-[1.4rem]",
         "border-l-4 border-transparent",
         "hover:text-yellow-500 hover:border-yellow-300",
-        { "item-selected": highlighted }
+        { highlighted: highlighted }
       )}
     >
       <Link className=" flex flex-row items-center" to={`/person/${rest.id}`}>

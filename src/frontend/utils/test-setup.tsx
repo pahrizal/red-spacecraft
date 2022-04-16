@@ -1,11 +1,17 @@
-import { render as rtlRender, RenderOptions } from "@testing-library/react";
+import { render as rtlRender } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { initialAppState } from "../features/redux";
 import configureStore from "../features/redux/config";
 
-function render(ui: React.ReactElement, options?: RenderOptions) {
-  const store = configureStore(initialAppState);
+function render(
+  ui: React.ReactElement,
+  {
+    initialState = initialAppState,
+    store = configureStore(initialState),
+    ...renderOptions
+  } = {}
+) {
   function Wrapper({ children }: { children: React.ReactNode }) {
     return (
       <Provider store={store}>
@@ -13,7 +19,7 @@ function render(ui: React.ReactElement, options?: RenderOptions) {
       </Provider>
     );
   }
-  return rtlRender(ui, { wrapper: Wrapper, ...options });
+  return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
 }
 
 export * from "@testing-library/react";
