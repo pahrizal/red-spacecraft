@@ -9,5 +9,5 @@
     "moduleResolution": "node"
   },
   // don't compile frontend code in the backend
-  "exclude": ["../../build", "../frontend"]
+  "exclude": ["../../build", "../frontend", "src/**/*.spec.ts"]
 }

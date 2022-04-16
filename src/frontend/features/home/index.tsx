@@ -5,6 +5,7 @@ const Home = () => {
       <section>
         <header>
           <img
+            data-testid="logo"
             src="star-wars-logo.png"
             className="w-[30rem]"
             alt="Star Wars Logo"
