@@ -2,7 +2,8 @@ import clsx from "clsx";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { People } from "../../../backend/swapi/schema";
-import usePeople from "../hooks/person";
+import { useApi } from "../api/hook";
+import { useSearch } from "./hook";
 
 interface Props extends React.HTMLAttributes<HTMLInputElement> {}
 const SearchInput: FC<Props> = ({
@@ -11,24 +12,12 @@ const SearchInput: FC<Props> = ({
   placeholder,
   ...rest
 }) => {
-  const { loading, peoples, fetchAll } = usePeople();
-  const [searchValue, setSearchValue] = useState("");
-  const [filtered, setFiltered] = useState<People[]>([]);
+  const { busy, searchPeople, filteredPeoples, query } = useSearch();
   const handleSearch = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
-  }, []);
-  useEffect(() => {
-    fetchAll();
+    const keyword = e.target.value;
+    searchPeople(keyword);
   }, []);
 
-  useEffect(() => {
-    const newFilteredData = peoples
-      .filter((person: People) =>
-        person.name.toLowerCase().includes(searchValue.toLowerCase())
-      )
-      .sort((a, b) => a.name.localeCompare(b.name));
-    setFiltered(newFilteredData);
-  }, [peoples, searchValue]);
   return (
     <div
       className={clsx(
@@ -38,13 +27,13 @@ const SearchInput: FC<Props> = ({
         "w-full py-2"
       )}
     >
-      {loading ? (
+      {busy ? (
         <div className="px-4">Onboarding all crew, please wait...</div>
       ) : (
         <div
           className={clsx("flex px-4 flex-row items-center space-x-2 py-2", {
             "mb-3 pb-4 border-b border-yellow-300":
-              searchValue.length > 0 && filtered.length > 0,
+              query.length > 0 && filteredPeoples.length > 0,
           })}
         >
           <input
@@ -54,8 +43,9 @@ const SearchInput: FC<Props> = ({
               "text-yellow-500",
               className
             )}
+            value={query}
             onChange={handleSearch}
-            disabled={loading}
+            disabled={busy}
             autoFocus
             placeholder={
               placeholder || "Search people on the Star Wars canon universe!"
@@ -65,9 +55,9 @@ const SearchInput: FC<Props> = ({
           />
         </div>
       )}
-      {!loading && searchValue && (
+      {!busy && query && (
         <ul className="h-full max-h-80 overflow-scroll">
-          {filtered.map((people, i) => (
+          {filteredPeoples.map((people, i) => (
             <li
               key={i}
               className={clsx(
