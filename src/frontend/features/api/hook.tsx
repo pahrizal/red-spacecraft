@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../redux";
 import { apiActions } from "./action";
@@ -13,10 +13,16 @@ export function useApi() {
       dispatch(apiActions.fetchAllPeople());
     }
   }, [dispatch, peoples]);
-
+  const fetchPeopleById = useCallback(
+    (id: number) => {
+      dispatch(apiActions.fetchPeopleById(id));
+    },
+    [dispatch]
+  );
   return {
     peoples,
     busy,
     currentPeople,
+    fetchPeopleById,
   };
 }

@@ -3,7 +3,7 @@ import Swapi from "../../swapi";
 
 class PersonController {
   async getById(req: Request<{ id: number }>, res: Response) {
-    const people = await Swapi.getSwapiPeople(req.params.id);
+    const people = await Swapi.getPeopleById(req.params.id);
     res.json(people);
   }
   async getAll(req: Request, res: Response) {
