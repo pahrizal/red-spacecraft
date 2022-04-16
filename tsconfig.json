@@ -18,5 +18,5 @@
   },
   "include": ["src", "webpack.config.js"],
   // don't compile backend code in the frontend
-  "exclude": ["src/backend"]
+  "exclude": ["src/backend", "src/**/*.spec.{ts,tsx}"]
 }
