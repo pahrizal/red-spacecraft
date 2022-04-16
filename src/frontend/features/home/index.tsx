@@ -1,5 +1,7 @@
+import { useApi } from "../api/hook";
 import SearchInput from "../search/input";
 const Home = () => {
+  const { busy } = useApi();
   return (
     <div className="flex flex-row flex-wrap items-center">
       <section>
@@ -11,9 +13,15 @@ const Home = () => {
             alt="Star Wars Logo"
           />
         </header>
-        <main>
-          <SearchInput />
-        </main>
+        {!busy ? (
+          <main>
+            <SearchInput />
+          </main>
+        ) : (
+          <div className="w-full text-center">
+            Scanning the universe, please wait...
+          </div>
+        )}
       </section>
     </div>
   );

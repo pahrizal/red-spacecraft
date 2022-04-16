@@ -10,9 +10,7 @@ describe("App renders correctly", () => {
 
   it("have the Search input", () => {
     render(<App />);
-    const el = screen.getAllByPlaceholderText(
-      "Search people on the Star Wars canon universe!"
-    );
+    const el = screen.getAllByText("Scanning the universe, please wait...");
     expect(el).toHaveLength(1);
   });
 });
