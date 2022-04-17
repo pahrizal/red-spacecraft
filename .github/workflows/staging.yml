@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: red-spacecraft-staging
-      url: https://red-spacecraft.herokuapp.com
+      url: https://red-spacecraft-staging.herokuapp.com
     steps:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12
