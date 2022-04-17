@@ -56,7 +56,7 @@ If your PR is in a review state, but you have a new changes related to the opene
 When PR merged into staging branch, it will run github workflow for automatic deployment into staging at https://red-spacecraft-staging.herokuapp.com
 
 ## Production Site
-When staging branch merged into master branch, it will be available at https://red-spacecraft.herokuapp.com
+When staging branch merged into master, it will deployed automatically and available at https://red-spacecraft.herokuapp.com
 
 ## Show your Support
 To show your support for my work on this project:
