@@ -1,4 +1,4 @@
-name: Deploy to Staging
+name: Production Deployment
 
 on:
   push:
