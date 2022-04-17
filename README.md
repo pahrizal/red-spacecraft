@@ -19,7 +19,7 @@ then based on `master` create a new branch to work with
 The codes are mainly in `Typescript` and splited into two directories,
 
 #### Backend - `/src/backend`
-is a NodeJS Express server that run on port `3001` (by default). we can override this by adding `API_PORT=xxxx` in system environment or in `.env` file in project root directory
+is a NodeJS Express server that run on port `3001` or assigned port in `PORT` system environment (this is used by heroku).
 - `/api`, this is our API backend. Every folder in this directory will be the endpoint name with two files, the `controller.ts` and `route.ts` file.
 
   all endpoint can accept an `:id` param to get the data by id.
