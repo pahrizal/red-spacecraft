@@ -18,4 +18,4 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "red-spacecraft-staging"
           heroku_email: "lombokthinker@gmail.com"
-          usedocker: true
+          usedocker: false

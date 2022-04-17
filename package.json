@@ -9,7 +9,7 @@
     "start:backend": "NODE_ENV=production node api/index.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "node rewrite-package.js && concurrently -p name -c \"yellow,magenta,blue\" -n \"webpack-server,nodemon-server,CRA\" \"yarn dev:backend:webpack\" \"yarn dev:backend:nodemon\" \"yarn dev:frontend\"",
+    "dev": "concurrently -p name -c \"yellow,magenta,blue\" -n \"webpack-server,nodemon-server,CRA\" \"yarn dev:backend:webpack\" \"yarn dev:backend:nodemon\" \"yarn dev:frontend\"",
     "dev:frontend": "node wait-on.js && react-scripts start",
     "dev:backend": "concurrently -p name -c \"yellow,magenta\" -n \"webpack-server,nodemon-server\" \"yarn dev:backend:webpack\" \"yarn dev:backend:nodemon\"",
     "dev:backend:webpack": "webpack --config webpack.backend.js --watch",

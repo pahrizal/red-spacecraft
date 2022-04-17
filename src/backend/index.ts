@@ -8,7 +8,7 @@ import SpeciesRoute from "./api/species/route";
 import "dotenv/config";
 
 const STATIC_BUILD_DIR = path.join(process.cwd() + "/build");
-const PORT = process.env.API_PORT || 3001;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
