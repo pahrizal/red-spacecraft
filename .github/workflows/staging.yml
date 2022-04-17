@@ -1,0 +1,21 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      - name: red-spacecraft-staging
+        url: https://red-spacecraft.herokuapp.com
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "red-spacecraft-staging"
+          heroku_email: "lombokthinker@gmail.com"
+          usedocker: false
