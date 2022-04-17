@@ -53,10 +53,10 @@ If PR is not ready for review yet, please create a DRAFT pull request first.
 If your PR is in a review state, but you have a new changes related to the opened PR. please DON'T push this changes to the current open PR. just create a new branch and then create a new PR with target branch pointed to the old PR. if the old PR already merged into `master`, then it safe to target the `master` branch. this will not confusing the reviewer 😃
 ## Staging Environment
 
-When PR merged into master, it will run github workflow for automatic deployment into staging at https://red-spacecraft-staging.herokuapp.com
+When PR merged into staging branch, it will run github workflow for automatic deployment into staging at https://red-spacecraft-staging.herokuapp.com
 
 ## Production Site
-after promoting staging to production, it will be available at https://red-spacecraft.herokuapp.com
+When staging branch merged into master branch, it will be available at https://red-spacecraft.herokuapp.com
 
 ## Show your Support
 To show your support for my work on this project:
