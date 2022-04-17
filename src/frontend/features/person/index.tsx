@@ -1,11 +1,10 @@
 import clsx from "clsx";
-import React, { FC, useEffect } from "react";
+import { FC, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BackIcon from "../../assets/icons/back";
 import Spinner from "../../assets/spinner";
 import { useApi } from "../api/hook";
 import { ROUTES } from "../router/definition";
-import { useSearch } from "../search/hook";
 import StatRow from "./stat-row";
 
 const Person: FC = () => {

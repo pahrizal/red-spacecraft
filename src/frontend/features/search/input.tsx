@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { People } from "../../../backend/swapi/schema";
 import { ROUTES } from "../router/definition";
 import { useSearch } from "./hook";
